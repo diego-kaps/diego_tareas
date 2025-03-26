@@ -19,12 +19,12 @@ class ListaElementos extends StatelessWidget {
           itemCount: 10,
           itemBuilder: (context, index) {
             return Card(
-              // Modificamos las propiedades para que todo quede mejor.
+              // Margen en todos los lados de la tarjeta.
               margin: const EdgeInsets.all(
                 8.0,
-              ), // Margen entre los elementos de la tarjeta.
+              ),
               elevation: 3,
-              child: ListTile(
+              child: ListTile( // Representa cada elemento de la lista.
                 // Utilizado para cada entrada en la lista.
                 leading: ClipRRect(
                   // Se usa este tipo de recorte porque permite bordes redondeados.

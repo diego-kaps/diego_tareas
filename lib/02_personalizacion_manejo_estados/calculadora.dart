@@ -35,7 +35,7 @@ class _CalculadoraState extends State<Calculadora> {
   void _sumar() {
     double num1 =
         double.tryParse(_num1Controller.text) ??
-        0.0; // Intentamos convertir el valor. En caso de que no exista, sera 0 por defecto.
+        0.0; // Intentamos convertir el valor. En caso de que no haya un valor, sera 0 por defecto.
     double num2 =
         double.tryParse(_num2Controller.text) ??
         0.0; // Lo mismo con el segundo número.
@@ -50,14 +50,20 @@ class _CalculadoraState extends State<Calculadora> {
       appBar: AppBar(title: const Center(child: Text("Calculadora Simple"))),
       body: Container(
         decoration: BoxDecoration(
-          color: Colors.grey.shade100, // Color gris suave para el fondo.
+          color:
+              Colors
+                  .grey
+                  .shade100, // Un color gris de tonalidad suave para el fondo.
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(
+            16.0,
+          ), // Queremos que haya margen entre la pantalla y los elementos.
           child: Column(
             children: [
               // Se utiliza una tarjeta porque ofrece una superficie y así los elementos no quedan flotando en la pantalla.
-              Card( // Todas las tarjetas tienen un padding para ajustar los elementos.
+              Card(
+                // Todas las tarjetas tienen un padding para ajustar los elementos.
                 elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -72,7 +78,9 @@ class _CalculadoraState extends State<Calculadora> {
                         decoration: const InputDecoration(
                           labelText: "Número 1",
                         ),
-                        onChanged: (valor) => _sumar(),
+                        onChanged:
+                            (valor) =>
+                                _sumar(), // Cada vez que se cambia el valor, se añade al resultado.
                       ),
 
                       const SizedBox(height: 10),
@@ -83,22 +91,22 @@ class _CalculadoraState extends State<Calculadora> {
                         decoration: const InputDecoration(
                           labelText: "Número 2",
                         ),
-                        onChanged: (valor) => _sumar(),
+                        onChanged:
+                            (valor) => _sumar(), // Aquí exáctamente lo mismo.
                       ),
                     ],
                   ),
                 ),
               ),
 
-              const SizedBox(height: 20),
-
+              const SizedBox(height: 20), // Espacio entre el último campo de texto y el campo para el resultado.
               Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0), // También queremos márgenes dentro de la tarjeta, al poner el resultado.
                   child: Text(
                     "Resultado: $_resultado",
                     style: const TextStyle(

@@ -16,11 +16,6 @@ class TodoApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.blue,
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontFamily: "Roboto", fontSize: 16),
-          bodyMedium: TextStyle(fontFamily: "Roboto", fontSize: 14),
-          bodySmall: TextStyle(fontFamily: "Roboto", fontSize: 12),
-        ),
       ),
       home: const TodoScreen(),
     );
@@ -48,6 +43,7 @@ class _TodoScreenState extends State<TodoScreen> {
     if (_tituloController.text.isEmpty || _descController.text.isEmpty) return;
     setState(() {
       _tareas.add({
+        // Añadimos las tareas asignando la clave a cada valor.
         "titulo": _tituloController.text,
         "desc": _descController.text,
       });
@@ -55,7 +51,9 @@ class _TodoScreenState extends State<TodoScreen> {
 
     ScaffoldMessenger.of(
       context,
+      // Mostramos que la tarea ha sido añadida con éxito.
     ).showSnackBar(const SnackBar(content: Text("¡Tarea añadida con éxito!")));
+
     // Eliminamos el contenido de los campos de texto para que el usuario pueda seguir añadiendo tareas.
     _tituloController.clear();
     _descController.clear();
@@ -69,6 +67,7 @@ class _TodoScreenState extends State<TodoScreen> {
 
     ScaffoldMessenger.of(
       context,
+      // Al igual que el anterior, indicamos cuando una tarea ha sido eliminada.
     ).showSnackBar(const SnackBar(content: Text("¡Tarea eliminada!")));
   }
 
@@ -108,6 +107,7 @@ class _TodoScreenState extends State<TodoScreen> {
               ),
               child: Column(
                 children: [
+                  // Ambos campos de texto para añadir las tareas.
                   TextField(
                     controller: _tituloController,
                     decoration: const InputDecoration(labelText: "Titulo"),
@@ -139,6 +139,7 @@ class _TodoScreenState extends State<TodoScreen> {
                     // Estructura de cada elemento que se añada a la lista.
                     child: ListTile(
                       title: Text(
+                        // Obtiene el título de la tarea según su índice.
                         _tareas[indice]["titulo"]!,
                         style: TextStyle(
                           fontSize: 18,
@@ -146,11 +147,13 @@ class _TodoScreenState extends State<TodoScreen> {
                           color: Colors.blue.shade800,
                         ),
                       ),
+                      // Y aquí obtiene la descripción según el mismo índice.
                       subtitle: Text(_tareas[indice]["desc"]!, style: TextStyle(
                         fontSize: 14,
                       ),),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete, color: Colors.red),
+                        // Cuando lo presionas, la tarea es eliminada.
                         onPressed: () => _removerTarea(indice),
                       ),
                     ),

@@ -97,6 +97,7 @@ class TarjetaPresentacion extends StatelessWidget {
                           SizedBox(
                             height: 8,
                           ), // Espacio entre el nombre y descripción.
+                          // Se ha usado otra SizedBox para evitar que la descripción se desborde y que este tenga limitaciones.
                           SizedBox(
                             width: 200,
                             child: Text(

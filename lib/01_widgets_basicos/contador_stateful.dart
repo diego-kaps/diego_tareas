@@ -18,6 +18,7 @@ class _ContadorState extends State<Contador> {
 
   void _incrementarContador() {
     setState(() {
+      // Hace que cambie el estado y aumenta el contador, cambiando cada vez que ocurre.
       _counter++;
     });
   }
@@ -40,7 +41,7 @@ class _ContadorState extends State<Contador> {
               Text(
                 "Contador: $_counter", // Muestra el contador con estilo grande.
                 style: const TextStyle(
-                  fontSize: 40,
+                  fontSize: 40, 
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
                 ),
