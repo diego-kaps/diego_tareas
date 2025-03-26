@@ -96,6 +96,7 @@ class _PantallaProductoState extends State<PantallaProducto> {
 }
 
 class TarjetaProducto extends StatefulWidget {
+  // No son variables privadas porque deben ser accedidas fuera de esta clase.
   final String titulo;
   final String imageUrl;
   final double precio;
@@ -210,15 +211,15 @@ class _TarjetaProductoState extends State<TarjetaProducto> {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), // Bordes circulares
+      elevation: 3, // Efecto de sombra en la tarjeta
       shadowColor: Colors.black54,
       child: ListTile(
         contentPadding: const EdgeInsets.all(16.0),
-        leading: ClipRRect(
+        leading: ClipRRect( // Redondeamos los bordes de la imagen.
           borderRadius: BorderRadius.circular(12),
           child: Image.network(
-            widget.imageUrl,
+            widget.imageUrl, // Utilizamos la variables que hemos definido anteriormente.
             width: 60,
             height: 60,
             fit: BoxFit.cover,
