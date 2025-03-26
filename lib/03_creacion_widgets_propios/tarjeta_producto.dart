@@ -70,13 +70,13 @@ class _PantallaProductoState extends State<PantallaProducto> {
                   "https://resize.sprintercdn.com/f/384x384/products/0371390/nike-revolution-7_0371390_02_4_2983334563.jpg?w=384&q=75",
               precio: 15.99,
             ),
-                        const TarjetaProducto(
+            const TarjetaProducto(
               titulo: "Adidas Climacool 1 Sneaker",
               imageUrl:
                   "https://asset.snipes.com/images/f_auto,q_100,d_fallback-sni.png/b_rgb:f8f8f8,c_pad,w_680,h_680/dpr_1.0/02303297_1/adidas-originals-climacool-1-sneaker-negro-29350-1",
               precio: 125.99,
             ),
-                        const TarjetaProducto(
+            const TarjetaProducto(
               titulo: "Puma Park Lifestyle",
               imageUrl:
                   "https://img01.ztat.net/article/spp-media-p1/06deb88e351c4975af05a0aa84ea2b42/5cc2e7a2a37e4e10ba232de558354cab.jpg?imwidth=1800&filter=packshot",
@@ -151,9 +151,11 @@ class _TarjetaProductoState extends State<TarjetaProducto> {
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 5,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
+                    // Usamos esto para que las celdas tengan un número fijo de columnas.
+                    crossAxisCount: 5, // Este es el número de columnas.
+                    crossAxisSpacing:
+                        10, // Espaciado horizontal de las columnas
+                    mainAxisSpacing: 10, // Espaciado Vertical de las columnas.
                   ),
                   itemCount: colores.length,
                   itemBuilder: (context, indice) {
