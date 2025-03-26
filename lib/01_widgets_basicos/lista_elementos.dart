@@ -12,34 +12,37 @@ class ListaElementos extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
-
       home: Scaffold(
         appBar: AppBar(title: const Center(child: Text("Lista de Elementos"))),
         body: ListView.builder(
+          // Definimos que la lista tendrá 10 elementos.
           itemCount: 10,
           itemBuilder: (context, index) {
             return Card(
-              // Margen en todos los lados de la tarjeta.
-              margin: const EdgeInsets.all(
-                8.0,
-              ),
-              elevation: 3,
-              child: ListTile( // Representa cada elemento de la lista.
-                // Utilizado para cada entrada en la lista.
+              // Espacio alrededor de la tarjeta para separarla de otros elementos.
+              margin: const EdgeInsets.all(8.0),
+              elevation: 3, // Sombra para dar profundidad.
+              child: ListTile(
+                // Icono o imagen que aparece al principio de cada fila.
                 leading: ClipRRect(
-                  // Se usa este tipo de recorte porque permite bordes redondeados.
+                  // Recorta las imágenes en forma circular.
                   borderRadius: BorderRadius.circular(50),
                   child: Image.network(
-                    "https://picsum.photos/seed/${index + 1}/200/200", // Se le suma 1 porque la seed inicial daban repetidas 2 imágenes.
+                    // Genera una imagen aleatoria usando una URL dinámica.
+                    "https://picsum.photos/seed/${index + 1}/200/200",
                     width: 60,
                     height: 60,
                     fit:
                         BoxFit
-                            .cover, // Para que la imagen insertada se ajuste bien.
+                            .cover, // Ajuste adecuado para que la imagen no se distorsione.
                   ),
                 ),
-                title: Text("Elemento ${index + 1}"),
-                subtitle: const Text("Descripción usada como ejemplo."),
+                title: Text(
+                  "Elemento ${index + 1}",
+                ), // Título dinámico para cada fila.
+                subtitle: const Text(
+                  "Descripción usada como ejemplo.",
+                ), // Descripción fija.
               ),
             );
           },

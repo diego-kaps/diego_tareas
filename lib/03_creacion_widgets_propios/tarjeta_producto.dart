@@ -8,6 +8,7 @@ void main() {
   runApp(const ProductoApp());
 }
 
+// Clase principal de la aplicación.
 class ProductoApp extends StatelessWidget {
   const ProductoApp({super.key});
 
@@ -21,6 +22,7 @@ class ProductoApp extends StatelessWidget {
   }
 }
 
+// Pantalla que muestra una lista de productos.
 class PantallaProducto extends StatefulWidget {
   const PantallaProducto({super.key});
 
@@ -36,8 +38,9 @@ class _PantallaProductoState extends State<PantallaProducto> {
         title: Center(
           child: Text(
             "Productos",
+            // Aplicamos la fuente Roboto al título del AppBar.
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontSize: 30,
@@ -57,32 +60,33 @@ class _PantallaProductoState extends State<PantallaProducto> {
           ),
         ),
         child: ListView(
-          children: [
-            const TarjetaProducto(
+          children: const [
+            // Lista de tarjetas de productos.
+            TarjetaProducto(
               titulo: "Zapatillas de Lona",
               imageUrl:
                   "https://zapatop.com/8951-large_default/mujer-zapatillas-zapatillas-de-lona-modelo-7-a12d_14-25.jpg",
               precio: 10.95,
             ),
-            const TarjetaProducto(
+            TarjetaProducto(
               titulo: "Nike Revolution 7",
               imageUrl:
                   "https://resize.sprintercdn.com/f/384x384/products/0371390/nike-revolution-7_0371390_02_4_2983334563.jpg?w=384&q=75",
               precio: 15.99,
             ),
-            const TarjetaProducto(
+            TarjetaProducto(
               titulo: "Adidas Climacool 1 Sneaker",
               imageUrl:
                   "https://asset.snipes.com/images/f_auto,q_100,d_fallback-sni.png/b_rgb:f8f8f8,c_pad,w_680,h_680/dpr_1.0/02303297_1/adidas-originals-climacool-1-sneaker-negro-29350-1",
               precio: 125.99,
             ),
-            const TarjetaProducto(
+            TarjetaProducto(
               titulo: "Puma Park Lifestyle",
               imageUrl:
                   "https://img01.ztat.net/article/spp-media-p1/06deb88e351c4975af05a0aa84ea2b42/5cc2e7a2a37e4e10ba232de558354cab.jpg?imwidth=1800&filter=packshot",
               precio: 79.95,
             ),
-            const TarjetaProducto(
+            TarjetaProducto(
               titulo: "Nike Air Force 1'07",
               imageUrl:
                   "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/82aa97ed-98bf-4b6f-9d0b-31a9f907077b/AIR+FORCE+1+%2707.png",
@@ -95,8 +99,8 @@ class _PantallaProductoState extends State<PantallaProducto> {
   }
 }
 
+// Clase que representa una tarjeta de producto.
 class TarjetaProducto extends StatefulWidget {
-  // No son variables privadas porque deben ser accedidas fuera de esta clase.
   final String titulo;
   final String imageUrl;
   final double precio;
@@ -113,8 +117,8 @@ class TarjetaProducto extends StatefulWidget {
 }
 
 class _TarjetaProductoState extends State<TarjetaProducto> {
-  // Lista de colores predefinidos para los productos.
-  List<Color> colores = [
+  // Lista de colores disponibles para selección.
+  final List<Color> colores = [
     Colors.red,
     Colors.blue,
     Colors.green,
@@ -122,18 +126,17 @@ class _TarjetaProductoState extends State<TarjetaProducto> {
     Colors.purple,
   ];
 
-  // Variable para almacenar el color que sea seleccionado.
+  // Color seleccionado inicialmente.
   Color _colorElegido = Colors.red;
-  // Necesitamos que haya uno de manera predeterminada.
 
-  // Hacemos el método para que únicamente cambie el estado del color y no tenga que recargar toda la app.
+  // Método para actualizar el color seleccionado.
   void _setColor(Color color) {
     setState(() {
       _colorElegido = color;
     });
   }
 
-  // Metodo para mostrar un modal con los colores disponibles.
+  // Método para mostrar un modal con los colores disponibles.
   void _showSelectorColor() {
     showModalBottomSheet(
       context: context,
@@ -158,18 +161,16 @@ class _TarjetaProductoState extends State<TarjetaProducto> {
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    // Usamos esto para que las celdas tengan un número fijo de columnas.
-                    crossAxisCount: 5, // Este es el número de columnas.
-                    crossAxisSpacing:
-                        10, // Espaciado horizontal de las columnas
-                    mainAxisSpacing: 10, // Espaciado Vertical de las columnas.
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
                   itemCount: colores.length,
                   itemBuilder: (context, indice) {
                     return GestureDetector(
                       onTap: () {
                         _setColor(colores[indice]);
-                        Navigator.pop(context); // Cerramos el modal
+                        Navigator.pop(context);
                       },
                       child: CircleAvatar(backgroundColor: colores[indice]),
                     );
@@ -178,10 +179,9 @@ class _TarjetaProductoState extends State<TarjetaProducto> {
               ),
               Text(
                 "Color Actual: ${_getNombreColor(_colorElegido)}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
                 ),
               ),
             ],
@@ -191,35 +191,35 @@ class _TarjetaProductoState extends State<TarjetaProducto> {
     );
   }
 
+  // Método para obtener el nombre del color seleccionado.
   String _getNombreColor(Color color) {
-    Map<Color, String> nombresColor = {
-      Colors.red: "Rojo",
-      Colors.blue: "Azul",
-      Colors.green: "Verde",
-      Colors.orange: "Naranja",
-      Colors.purple: "Morado",
-    };
-    return nombresColor[color] ?? "Desconocido";
+    return {
+          Colors.red: "Rojo",
+          Colors.blue: "Azul",
+          Colors.green: "Verde",
+          Colors.orange: "Naranja",
+          Colors.purple: "Morado",
+        }[color] ??
+        "Desconocido";
   }
 
+  // Método para formatear el precio en euros.
   String formatPrecioEnEuros(double precio) {
-    var formatoMoneda = NumberFormat.currency(locale: "es_ES", symbol: "€");
-    return formatoMoneda.format(precio);
+    return NumberFormat.currency(locale: "es_ES", symbol: "€").format(precio);
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), // Bordes circulares
-      elevation: 3, // Efecto de sombra en la tarjeta
-      shadowColor: Colors.black54,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 3,
       child: ListTile(
         contentPadding: const EdgeInsets.all(16.0),
-        leading: ClipRRect( // Redondeamos los bordes de la imagen.
+        leading: ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Image.network(
-            widget.imageUrl, // Utilizamos la variables que hemos definido anteriormente.
+            widget.imageUrl,
             width: 60,
             height: 60,
             fit: BoxFit.cover,
@@ -235,17 +235,7 @@ class _TarjetaProductoState extends State<TarjetaProducto> {
         ),
         trailing: GestureDetector(
           onTap: _showSelectorColor,
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            decoration: BoxDecoration(
-              color: _colorElegido,
-              shape: BoxShape.circle,
-            ),
-            width: 40,
-            height: 40,
-            child: Icon(Icons.check, color: Colors.white, size: 26),
-          ),
+          child: CircleAvatar(backgroundColor: _colorElegido, radius: 20),
         ),
       ),
     );

@@ -4,7 +4,7 @@ void main() {
   runApp(const Contador());
 }
 
-// Clase con StatefulWidget porque el contador cambia su estado.
+// StatefulWidget porque el contador cambia su valor dinámicamente al presionar el botón.
 class Contador extends StatefulWidget {
   const Contador({super.key});
 
@@ -12,13 +12,15 @@ class Contador extends StatefulWidget {
   State<Contador> createState() => _ContadorState();
 }
 
-// Se han creado una variable y método privado para respetar el principio de encapsulación (POO).
+// Clase que maneja el estado del contador.
 class _ContadorState extends State<Contador> {
+  // Variable privada que almacena el valor actual del contador.
   int _counter = 0;
 
+  // Método para incrementar el valor del contador y actualizar la interfaz.
   void _incrementarContador() {
     setState(() {
-      // Hace que cambie el estado y aumenta el contador, cambiando cada vez que ocurre.
+      // Aumenta el contador y notifica a Flutter para que reconstruya la UI.
       _counter++;
     });
   }
@@ -32,35 +34,34 @@ class _ContadorState extends State<Contador> {
         appBar: AppBar(title: const Center(child: Text("Contador Simple"))),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Centra verticalmente
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Centra los elementos verticalmente.
             crossAxisAlignment:
                 CrossAxisAlignment
-                    .center, // Y asegura la alineación horizontal.
+                    .center, // Asegura que los elementos estén alineados en el centro horizontal.
             children: [
               Text(
-                "Contador: $_counter", // Muestra el contador con un estilo más grande.
+                "Contador: $_counter", // Muestra el valor actual del contador.
                 style: const TextStyle(
-                  fontSize: 40, 
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
+                  fontSize: 40, // Tamaño de fuente grande para el contador.
+                  fontWeight: FontWeight.bold, // Texto en negrita.
+                  color: Colors.blue, // Color del texto.
                 ),
               ),
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: _incrementarContador,
-          backgroundColor: Colors.blue,
+          onPressed:
+              _incrementarContador, // Llama al método para incrementar el contador.
+          backgroundColor: Colors.blue, // Color de fondo del botón.
           child: const Icon(
-            Icons.add,
-            size:
-                40, // Le aumentamos el tamaño para que sea el foco de la pantalla.
+            Icons.add, // Icono de sumar.
+            size: 40, // Tamaño grande para que el botón sea más visible.
           ),
         ),
-        // Le ponemos una localización para mejorar accesibilidad y visibilidad.
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation
-                .centerFloat, // Si usas "centerDocked" se queda anclado a la barra de navegación.
+        // Ubicación del botón flotante en el centro de la pantalla.
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

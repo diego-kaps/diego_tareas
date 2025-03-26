@@ -17,8 +17,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Gracias al snippet StatefulW usamos estados dinámicos que únicamente recargan los cambios y no toda la aplicación en cada reload.
-
+// Widget con estado para actualizar dinámicamente los resultados.
 class Calculadora extends StatefulWidget {
   const Calculadora({super.key});
 
@@ -27,18 +26,18 @@ class Calculadora extends StatefulWidget {
 }
 
 class _CalculadoraState extends State<Calculadora> {
+  // Controladores para capturar los valores ingresados por el usuario.
   final TextEditingController _num1Controller = TextEditingController();
   final TextEditingController _num2Controller = TextEditingController();
 
+  // Variable que almacena el resultado de la suma.
   double _resultado = 0.0;
 
+  // Método que realiza la suma y actualiza la pantalla en tiempo real.
   void _sumar() {
-    double num1 =
-        double.tryParse(_num1Controller.text) ??
-        0.0; // Intentamos convertir el valor. En caso de que no haya un valor, sera 0 por defecto.
-    double num2 =
-        double.tryParse(_num2Controller.text) ??
-        0.0; // Lo mismo con el segundo número.
+    double num1 = double.tryParse(_num1Controller.text) ?? 0.0;
+    double num2 = double.tryParse(_num2Controller.text) ?? 0.0;
+
     setState(() {
       _resultado = num1 + num2;
     });
@@ -50,20 +49,14 @@ class _CalculadoraState extends State<Calculadora> {
       appBar: AppBar(title: const Center(child: Text("Calculadora Simple"))),
       body: Container(
         decoration: BoxDecoration(
-          color:
-              Colors
-                  .grey
-                  .shade100, // Un color gris de tonalidad suave para el fondo.
+          color: Colors.grey.shade100, // Fondo gris claro.
         ),
         child: Padding(
-          padding: const EdgeInsets.all(
-            16.0,
-          ), // Queremos que haya margen entre la pantalla y los elementos.
+          padding: const EdgeInsets.all(16.0), // Margen general.
           child: Column(
             children: [
-              // Se utiliza una tarjeta porque ofrece una superficie y así los elementos no quedan flotando en la pantalla.
+              // Tarjeta para contener los campos de entrada.
               Card(
-                // Todas las tarjetas tienen un padding para ajustar los elementos.
                 elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -72,6 +65,7 @@ class _CalculadoraState extends State<Calculadora> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
+                      // Campo para ingresar el primer número.
                       TextField(
                         controller: _num1Controller,
                         keyboardType: TextInputType.number,
@@ -80,33 +74,32 @@ class _CalculadoraState extends State<Calculadora> {
                         ),
                         onChanged:
                             (valor) =>
-                                _sumar(), // Cada vez que se cambia el valor, se añade al resultado.
+                                _sumar(), // Actualiza el resultado al escribir.
                       ),
-
                       const SizedBox(height: 10),
-
+                      // Campo para ingresar el segundo número.
                       TextField(
                         controller: _num2Controller,
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(
                           labelText: "Número 2",
                         ),
-                        onChanged:
-                            (valor) => _sumar(), // Aquí exáctamente lo mismo.
+                        onChanged: (valor) => _sumar(),
                       ),
                     ],
                   ),
                 ),
               ),
 
-              const SizedBox(height: 20), // Espacio entre el último campo de texto y el campo para el resultado.
+              const SizedBox(height: 20), // Espacio entre los elementos.
+              // Tarjeta que muestra el resultado.
               Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0), // También queremos márgenes dentro de la tarjeta, al poner el resultado.
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
                     "Resultado: $_resultado",
                     style: const TextStyle(

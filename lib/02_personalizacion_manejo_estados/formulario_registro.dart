@@ -25,43 +25,35 @@ class PantallaRegistro extends StatefulWidget {
 }
 
 class _PantallaRegistroState extends State<PantallaRegistro> {
-  // -- Usando estos componentes podemos automatizar la recolección y validación de datos del formulario. --
-
-  // LLave del formulario que será utilizada para las validaciones de cada campo.
+  // Llave para identificar el formulario y validar sus campos.
   final _formKey = GlobalKey<FormState>();
 
-  // Los controladores del campo de texto para obtener los valores introducidos por el usuario.
+  // Controladores para capturar la entrada de los usuarios.
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // Métodos de validación para los campos. Si devuelven nulo es que la validación es correcta.
-  // Como puede regresar nulo debemos poner ? en la cabecera de los métodos.
-
-  // Los mensajes que devuelven estos métodos serán usados para indicar si el usuario debe realizar alguna correción.
-  // -- Validación del nombre.
+  // Validación del campo de nombre.
   String? _validarNombre(String? valor) {
-    // Como puede regresar nulo debemos poner ?.
     if (valor == null || valor.isEmpty) {
       return "Por favor, ingresa tu nombre";
     }
     return null;
   }
 
-  // -- Validación del correo.
+  // Validación del correo electrónico.
   String? _validarCorreo(String? valor) {
     if (valor == null || valor.isEmpty) {
       return "Por favor, ingresa un correo electrónico";
-      // Esto utiliza una expresión regular para validar el correo electrónico.
-      // Se pone el caracter "r" antes de la expresión para que lo tolere como una cadena cruda: no interpreta los caracteres de escape como \n o \t.
     } else if (!RegExp(
-      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", // Regex obtenido desde recursos de internet.
+      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
     ).hasMatch(valor)) {
       return "Por favor, ingresa un correo electrónico válido.";
     }
     return null;
   }
 
+  // Validación de la contraseña.
   String? _validarPassword(String? valor) {
     if (valor == null || valor.isEmpty) {
       return "Por favor, ingresa una contraseña.";
@@ -69,16 +61,13 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
     return null;
   }
 
-  // Método para enviar el formulario.
+  // Envía el formulario si la validación es correcta.
   void _enviarFormulario() {
-    // Si se posee un estado correcto tras realizar todas las validaciones. se indica el éxito de la operación.
-    // En caso de que no haya un estado, se tolerará como falso para enviar el mensaje de error.
     if (_formKey.currentState?.validate() ?? false) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Formulario enviado exitosamente.")),
       );
     } else {
-      // Si no es válido porque ha devuelto false, se indica que ha ocurrido un error.
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Por favor, corrige los errores.")),
       );
@@ -92,64 +81,52 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
         title: const Center(child: Text("Formulario de Registro")),
       ),
       body: Center(
-        // Queremos que haya margenes entre el contenedor y la pantalla.
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
-            // Se ha utiliazdo un contenedor para poner una base sólida debajo del formulario.
             padding: const EdgeInsets.all(15.0),
-            // Se
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.black),
               boxShadow: const [
                 BoxShadow(
-                  color: Colors.black26, // Un color negro más claro.
-                  offset: Offset(
-                    0,
-                    4,
-                  ), // Le damos un poco de efecto a la sombra.
-                  blurRadius: 4, // Y le damos radio a la sombra del contenedor.
+                  color: Colors.black26,
+                  offset: Offset(0, 4),
+                  blurRadius: 4,
                 ),
               ],
             ),
             child: Form(
-              key:
-                  _formKey, // Indicamos que debe usar la llave que hemos declarado anteriormente.
-              // Así, al enviar el formulario podrá verificar si todo es válido.
+              key: _formKey,
               child: Column(
                 children: <Widget>[
-                  // Campo de Texto para el nombre.
+                  // Campo de entrada para el nombre.
                   TextFormField(
-                    controller:
-                        _nameController, // Obtiene el nombre del controlador.
+                    controller: _nameController,
                     decoration: const InputDecoration(
                       labelText: "Nombre",
                       filled: true,
                       fillColor: Color.fromARGB(255, 251, 251, 251),
                     ),
-                    validator: // Devuelve Null si es válido, un mensaje de error en caso contrario.
-                        _validarNombre, // Valida el campo de texto usando el método declarando anteriormente.
+                    validator: _validarNombre,
                   ),
-                  // Separación entre campos de texto.
                   const SizedBox(height: 16),
 
+                  // Campo de entrada para el correo electrónico.
                   TextFormField(
-                    controller:
-                        _emailController, // Obtenemos el correo electrónico.
+                    controller: _emailController,
                     decoration: const InputDecoration(
                       labelText: "Correo Electrónico",
                       filled: true,
                       fillColor: Color.fromARGB(255, 251, 251, 251),
                     ),
                     keyboardType: TextInputType.emailAddress,
-                    validator:
-                        _validarCorreo, // Igual que el anterior, valida teniendo en cuenta el método asignado.
+                    validator: _validarCorreo,
                   ),
-
                   const SizedBox(height: 16),
 
+                  // Campo de entrada para la contraseña.
                   TextFormField(
                     controller: _passwordController,
                     decoration: const InputDecoration(
@@ -160,21 +137,17 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
                     obscureText: true,
                     validator: _validarPassword,
                   ),
-
                   const SizedBox(height: 20),
 
                   // Botón para enviar el formulario.
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                        140,
-                        50,
-                      ), // Cambiamos el ancho y alto.
+                      minimumSize: const Size(140, 50),
                     ),
                     onPressed: _enviarFormulario,
                     child: const Text("Registrar"),
                   ),
-                ], // Especificamos que es de Widgets para respetar las buenas prácticas.
+                ],
               ),
             ),
           ),

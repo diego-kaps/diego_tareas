@@ -13,10 +13,7 @@ class TodoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.blue,
-      ),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
       home: const TodoScreen(),
     );
   }
@@ -30,44 +27,43 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
-  // Lista que almacena las tareas como si de un listado de mapas dinámicos se tratase.
-  // Facilita luego la búsqueda de las tareas gracias al key - value de los mapas.
-  final List<Map<String, String>> _tareas = []; // Lo dejamos instanciado.
+  // Lista que almacena las tareas, representadas como mapas con clave "titulo" y "desc".
+  final List<Map<String, String>> _tareas = [];
 
-  // Controladores que se utizarán para obtener el nombre y descripción introducidos.
+  // Controladores para capturar el texto ingresado en los campos de entrada.
   final TextEditingController _tituloController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
 
-  // Agrega una nueva tarea con su título y descripción.
+  // Método para agregar una nueva tarea con título y descripción.
   void _addTarea() {
     if (_tituloController.text.isEmpty || _descController.text.isEmpty) return;
+
     setState(() {
       _tareas.add({
-        // Añadimos las tareas asignando la clave a cada valor.
         "titulo": _tituloController.text,
         "desc": _descController.text,
       });
     });
 
+    // Muestra un mensaje de confirmación.
     ScaffoldMessenger.of(
       context,
-      // Mostramos que la tarea ha sido añadida con éxito.
     ).showSnackBar(const SnackBar(content: Text("¡Tarea añadida con éxito!")));
 
-    // Eliminamos el contenido de los campos de texto para que el usuario pueda seguir añadiendo tareas.
+    // Limpia los campos de entrada después de agregar la tarea.
     _tituloController.clear();
     _descController.clear();
   }
 
-  // Elimina una tarea que esté añadida a la lista.
+  // Método para eliminar una tarea de la lista según su índice.
   void _removerTarea(int indice) {
     setState(() {
       _tareas.removeAt(indice);
     });
 
+    // Muestra un mensaje de confirmación al eliminar la tarea.
     ScaffoldMessenger.of(
       context,
-      // Al igual que el anterior, indicamos cuando una tarea ha sido eliminada.
     ).showSnackBar(const SnackBar(content: Text("¡Tarea eliminada!")));
   }
 
@@ -92,6 +88,7 @@ class _TodoScreenState extends State<TodoScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            // Contenedor estilizado para los campos de entrada.
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
@@ -107,11 +104,12 @@ class _TodoScreenState extends State<TodoScreen> {
               ),
               child: Column(
                 children: [
-                  // Ambos campos de texto para añadir las tareas.
+                  // Campo de entrada para el título de la tarea.
                   TextField(
                     controller: _tituloController,
-                    decoration: const InputDecoration(labelText: "Titulo"),
+                    decoration: const InputDecoration(labelText: "Título"),
                   ),
+                  // Campo de entrada para la descripción de la tarea.
                   TextField(
                     controller: _descController,
                     decoration: const InputDecoration(labelText: "Descripción"),
@@ -120,13 +118,11 @@ class _TodoScreenState extends State<TodoScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            // Usamos Expanded para que ocupe el resto de espacio de la columna.
+            // Lista dinámica de tareas.
             Expanded(
-            // Esta es la lista de tareas que se genera dinámicamente.
-              child: ListView.builder( 
+              child: ListView.builder(
                 itemCount: _tareas.length,
-                itemBuilder: (contexto, indice) {
-                  // Estructura de la carta en la que se añadirá cada tarea.
+                itemBuilder: (context, indice) {
                   return Card(
                     elevation: 4,
                     margin: const EdgeInsets.symmetric(
@@ -136,10 +132,9 @@ class _TodoScreenState extends State<TodoScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    // Estructura de cada elemento que se añada a la lista.
                     child: ListTile(
+                      // Muestra el título de la tarea.
                       title: Text(
-                        // Obtiene el título de la tarea según su índice.
                         _tareas[indice]["titulo"]!,
                         style: TextStyle(
                           fontSize: 18,
@@ -147,13 +142,14 @@ class _TodoScreenState extends State<TodoScreen> {
                           color: Colors.blue.shade800,
                         ),
                       ),
-                      // Y aquí obtiene la descripción según el mismo índice.
-                      subtitle: Text(_tareas[indice]["desc"]!, style: TextStyle(
-                        fontSize: 14,
-                      ),),
+                      // Muestra la descripción de la tarea.
+                      subtitle: Text(
+                        _tareas[indice]["desc"]!,
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      // Botón para eliminar la tarea.
                       trailing: IconButton(
                         icon: const Icon(Icons.delete, color: Colors.red),
-                        // Cuando lo presionas, la tarea es eliminada.
                         onPressed: () => _removerTarea(indice),
                       ),
                     ),
@@ -164,6 +160,7 @@ class _TodoScreenState extends State<TodoScreen> {
           ],
         ),
       ),
+      // Botón flotante para agregar nuevas tareas.
       floatingActionButton: FloatingActionButton(
         onPressed: _addTarea,
         backgroundColor: Colors.blue.shade300,
