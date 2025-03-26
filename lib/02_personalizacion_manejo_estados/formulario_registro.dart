@@ -25,6 +25,8 @@ class PantallaRegistro extends StatefulWidget {
 }
 
 class _PantallaRegistroState extends State<PantallaRegistro> {
+  // -- Usando estos componentes podemos automatizar la recolección y validación de datos del formulario. --
+
   // LLave del formulario que será utilizada para las validaciones de cada campo.
   final _formKey = GlobalKey<FormState>();
 
@@ -49,7 +51,9 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
       return "Por favor, ingresa un correo electrónico";
       // Esto utiliza una expresión regular para validar el correo electrónico.
       // Se pone el caracter "r" antes de la expresión para que lo tolere como una cadena cruda: no interpreta los caracteres de escape como \n o \t.
-    } else if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(valor)) {
+    } else if (!RegExp(
+      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+    ).hasMatch(valor)) {
       return "Por favor, ingresa un correo electrónico válido.";
     }
     return null;
@@ -81,7 +85,9 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text("Formulario de Registro"))),
+      appBar: AppBar(
+        title: const Center(child: Text("Formulario de Registro")),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -90,7 +96,7 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color:Colors.black),
+              border: Border.all(color: Colors.black),
               boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
@@ -107,44 +113,52 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
                   TextFormField(
                     controller:
                         _nameController, // Obtiene el nombre del controlador.
-                    decoration: const InputDecoration(labelText: "Nombre",
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 238, 238, 238)),
+                    decoration: const InputDecoration(
+                      labelText: "Nombre",
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 238, 238, 238),
+                    ),
                     validator:
                         _validarNombre, // Y lo valida usando el método declarando anteriormente.
                   ),
                   // Separación entre campos de texto.
                   const SizedBox(height: 16),
-                    
+
                   TextFormField(
                     controller:
                         _emailController, // Obtenemos el correo electrónico.
                     decoration: const InputDecoration(
                       labelText: "Correo Electrónico",
-                      filled:true,
-                      fillColor: Color.fromARGB(255, 238, 238, 238)),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 238, 238, 238),
+                    ),
                     keyboardType: TextInputType.emailAddress,
                     validator:
                         _validarCorreo, // Y lo valida con el método correspondiente.
                   ),
-                    
+
                   const SizedBox(height: 16),
-                    
+
                   TextFormField(
                     controller: _passwordController,
-                    decoration: const InputDecoration(labelText: "Contraseña",
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 238, 238, 238)),
+                    decoration: const InputDecoration(
+                      labelText: "Contraseña",
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 238, 238, 238),
+                    ),
                     obscureText: true,
                     validator: _validarPassword,
                   ),
-                    
+
                   const SizedBox(height: 20),
-                    
+
                   // Botón para enviar el formulario.
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(140, 50), // Cambiamos el ancho y alto.
+                      minimumSize: const Size(
+                        140,
+                        50,
+                      ), // Cambiamos el ancho y alto.
                     ),
                     onPressed: _enviarFormulario,
                     child: const Text("Registrar"),

@@ -20,7 +20,9 @@ class ListaElementos extends StatelessWidget {
           itemBuilder: (context, index) {
             return Card(
               // Modificamos las propiedades para que todo quede mejor.
-              margin: const EdgeInsets.all(8.0), // Margen entre los elementos de la tarjeta.
+              margin: const EdgeInsets.all(
+                8.0,
+              ), // Margen entre los elementos de la tarjeta.
               elevation: 3,
               child: ListTile(
                 // Utilizado para cada entrada en la lista.

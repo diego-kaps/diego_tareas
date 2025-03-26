@@ -4,6 +4,7 @@ void main() {
   runApp(const TarjetaPresentacion());
 }
 
+// Es sin estado porque no cambia durante la ejecución.
 class TarjetaPresentacion extends StatelessWidget {
   const TarjetaPresentacion({super.key});
 
@@ -18,6 +19,7 @@ class TarjetaPresentacion extends StatelessWidget {
           title: const Center(child: Text("Tarjeta de Presentación")),
         ),
         body: Center(
+          // Lo usamos para restringir el tamaño de la tarjeta.
           child: ConstrainedBox(
             constraints: const BoxConstraints(
               // Ancho y Altura de la tarjeta.
@@ -26,6 +28,7 @@ class TarjetaPresentacion extends StatelessWidget {
               minHeight: 180,
               maxHeight: 240,
             ),
+            // Envolvemos la tarjeta con un fondo degradado con bordes redondeados.
             child: Container(
               // Queremos un degradado de tipo cuadrado,.
               decoration: BoxDecoration(
@@ -37,6 +40,7 @@ class TarjetaPresentacion extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(16),
               ),
+              // Tarjeta con efecto sombra gracias a la elevación y bordes redondeados.
               child: Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
@@ -45,28 +49,43 @@ class TarjetaPresentacion extends StatelessWidget {
                 ),
                 child: Padding(
                   // Separación entre los bordes y los elementos.
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(18.0),
                   child: Row(
                     // Fila para la estructura de la tarjeta.
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize:
+                        MainAxisSize
+                            .min, // Solo ocupa el tamaño necesario, no estira la fila.
                     children: [
-                      ClipOval(
-                        // Recorte en forma de círculo.
-                        child: Image.asset(
-                          'assets/images/imagen_perfil.jpg',
-                          width: 70,
-                          height: 70,
-                          fit: BoxFit.cover,
+                      // Contenedor para darle un borde azul sutil a la imagen.
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.blue.shade400,
+                            width: 2,
+                          ),
+                        ),
+                        child: ClipOval(
+                          // Recorte en forma de círculo.
+                          child: Image.asset(
+                            'assets/images/imagen_perfil.jpg',
+                            width: 70,
+                            height: 70,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       const SizedBox(
-                        width: 16,
-                      ), // Insertamos un espacio entre la imagen y el texto.
+                        width:
+                            18, // Insertamos un espacio entre la imagen y el texto.
+                      ),
                       const Column(
                         crossAxisAlignment:
                             CrossAxisAlignment
                                 .start, // Cross Axis es el vertical porque estamos en una columna.
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize:
+                            MainAxisSize
+                                .min, // Lo mismo con la columna, para que no se estire.
                         children: [
                           Text(
                             "Lucas Martínez",
@@ -81,13 +100,17 @@ class TarjetaPresentacion extends StatelessWidget {
                           SizedBox(
                             width: 200,
                             child: Text(
+                              // Se ha usado Lorem Ipsum para probar como se ven texto más largos en la IU.
                               "Minim deserunt incididunt Lorem nulla. Excepteur nulla velit aliquip veniam est elit.",
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,
                               ),
-                              softWrap: true,
-                              overflow: TextOverflow.visible,
+                              softWrap:
+                                  true, // El texto se divide en varias lineas si fuera necesario.
+                              overflow:
+                                  TextOverflow
+                                      .visible, // Asegura que todo el texto sea visible.
                             ),
                           ),
                         ],

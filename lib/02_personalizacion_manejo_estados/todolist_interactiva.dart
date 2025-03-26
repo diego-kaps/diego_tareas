@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +13,15 @@ class TodoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(fontFamily: "Roboto", fontSize: 16),
+          bodyMedium: TextStyle(fontFamily: "Roboto", fontSize: 14),
+          bodySmall: TextStyle(fontFamily: "Roboto", fontSize: 12),
+        ),
+      ),
       home: const TodoScreen(),
     );
   }
@@ -43,6 +53,9 @@ class _TodoScreenState extends State<TodoScreen> {
       });
     });
 
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("¡Tarea añadida con éxito!")));
     // Eliminamos el contenido de los campos de texto para que el usuario pueda seguir añadiendo tareas.
     _tituloController.clear();
     _descController.clear();
@@ -53,13 +66,27 @@ class _TodoScreenState extends State<TodoScreen> {
     setState(() {
       _tareas.removeAt(indice);
     });
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("¡Tarea eliminada!")));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("App To-Do", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: 1.2, color: Colors.white),)),
+        title: const Center(
+          child: Text(
+            "App To-Do",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              letterSpacing: 1.2,
+              color: Colors.white,
+            ),
+          ),
+        ),
         backgroundColor: Colors.blue,
       ),
       body: Padding(
@@ -93,11 +120,13 @@ class _TodoScreenState extends State<TodoScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            // Esta es la lista de tareas que se genera dinámicamente.
+            // Usamos Expanded para que ocupe el resto de espacio de la columna.
             Expanded(
-              child: ListView.builder(
+            // Esta es la lista de tareas que se genera dinámicamente.
+              child: ListView.builder( 
                 itemCount: _tareas.length,
                 itemBuilder: (contexto, indice) {
+                  // Estructura de la carta en la que se añadirá cada tarea.
                   return Card(
                     elevation: 4,
                     margin: const EdgeInsets.symmetric(
@@ -107,16 +136,23 @@ class _TodoScreenState extends State<TodoScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
+                    // Estructura de cada elemento que se añada a la lista.
                     child: ListTile(
                       title: Text(
                         _tareas[indice]["titulo"]!,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blue.shade800,
+                        ),
                       ),
-                      subtitle: Text(_tareas[indice]["desc"]!),
+                      subtitle: Text(_tareas[indice]["desc"]!, style: TextStyle(
+                        fontSize: 14,
+                      ),),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete, color: Colors.red),
                         onPressed: () => _removerTarea(indice),
-                      )
+                      ),
                     ),
                   );
                 },
@@ -127,7 +163,7 @@ class _TodoScreenState extends State<TodoScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addTarea,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue.shade300,
         child: const Icon(Icons.add),
       ),
     );

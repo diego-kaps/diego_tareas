@@ -48,33 +48,68 @@ class _CalculadoraState extends State<Calculadora> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Center(child: Text("Calculadora Simple"))),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _num1Controller,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: "Número 1"),
-              onChanged: (valor) => _sumar(),
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.shade100, // Color gris suave para el fondo.
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              // Se utiliza una tarjeta porque ofrece una superficie y así los elementos no quedan flotando en la pantalla.
+              Card( // Todas las tarjetas tienen un padding para ajustar los elementos.
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _num1Controller,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: "Número 1",
+                        ),
+                        onChanged: (valor) => _sumar(),
+                      ),
 
-            const SizedBox(height: 10),
+                      const SizedBox(height: 10),
 
-            TextField(
-              controller: _num2Controller,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: "Número 2"),
-              onChanged: (valor) => _sumar(),
-            ),
+                      TextField(
+                        controller: _num2Controller,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: "Número 2",
+                        ),
+                        onChanged: (valor) => _sumar(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            Text(
-              "Resultado: $_resultado",
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ],
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "Resultado: $_resultado",
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
