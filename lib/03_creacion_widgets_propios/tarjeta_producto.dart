@@ -82,6 +82,12 @@ class _PantallaProductoState extends State<PantallaProducto> {
                   "https://img01.ztat.net/article/spp-media-p1/06deb88e351c4975af05a0aa84ea2b42/5cc2e7a2a37e4e10ba232de558354cab.jpg?imwidth=1800&filter=packshot",
               precio: 79.95,
             ),
+            const TarjetaProducto(
+              titulo: "Nike Air Force 1'07",
+              imageUrl:
+                  "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/82aa97ed-98bf-4b6f-9d0b-31a9f907077b/AIR+FORCE+1+%2707.png",
+              precio: 119.95,
+            ),
           ],
         ),
       ),
