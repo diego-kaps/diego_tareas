@@ -230,7 +230,7 @@ class _TarjetaProductoState extends State<TarjetaProducto> {
         ),
         subtitle: Text(
           formatPrecioEnEuros(widget.precio),
-          style: const TextStyle(fontSize: 15),
+          style: const TextStyle(fontSize: 18),
         ),
         trailing: GestureDetector(
           onTap: _showSelectorColor,
