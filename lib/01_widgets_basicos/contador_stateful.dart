@@ -12,7 +12,7 @@ class Contador extends StatefulWidget {
   State<Contador> createState() => _ContadorState();
 }
 
-// Se han creado una variable y método privado para respetar la encapsulación (POO).
+// Se han creado una variable y método privado para respetar el principio de encapsulación (POO).
 class _ContadorState extends State<Contador> {
   int _counter = 0;
 
@@ -32,14 +32,13 @@ class _ContadorState extends State<Contador> {
         appBar: AppBar(title: const Center(child: Text("Contador Simple"))),
         body: Center(
           child: Column(
-            // Para que estén los elementos en el centro.
             mainAxisAlignment: MainAxisAlignment.center, // Centra verticalmente
             crossAxisAlignment:
                 CrossAxisAlignment
                     .center, // Y asegura la alineación horizontal.
             children: [
               Text(
-                "Contador: $_counter", // Muestra el contador con estilo grande.
+                "Contador: $_counter", // Muestra el contador con un estilo más grande.
                 style: const TextStyle(
                   fontSize: 40, 
                   fontWeight: FontWeight.bold,
@@ -61,7 +60,7 @@ class _ContadorState extends State<Contador> {
         // Le ponemos una localización para mejorar accesibilidad y visibilidad.
         floatingActionButtonLocation:
             FloatingActionButtonLocation
-                .centerFloat, // Si ponemos centerDocked se queda anclado a la barra de navegación.
+                .centerFloat, // Si usas "centerDocked" se queda anclado a la barra de navegación.
       ),
     );
   }
